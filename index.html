@@ -2019,7 +2019,7 @@
     <div id="ag"></div>
     <script type="module">
       /* =====================================================================
-   GURUKU — Administrasi Guru SMP  (Supabase • PWA • 1 file • Glassmorphism)
+   GURUKU — Administrasi Guru SMA  (Supabase • PWA • 1 file • Glassmorphism)
    ===================================================================== */
       // KONFIGURASI APLIKASI
       const IS_PREVIEW = false; // Set false JIKA SUDAH TERHUBUNG KE SUPABASE
@@ -2774,9 +2774,6 @@
             if (args.p_password) u.password_hash = args.p_password;
             return true;
           }
-          case "seed_awal":
-            seedPreview();
-            return true;
         }
         return null;
       }
@@ -2804,445 +2801,14 @@
         );
       }
 
-      /* ------------------- Setup database otomatis & data uji ------------------- */
-      function seedPreview() {
-        if (MEM.__seeded) return;
-        MEM.__seeded = true;
-        let seed = 11;
-        const rnd = () => {
-          seed = (seed * 9301 + 49297) % 233280;
-          return seed / 233280;
-        };
-        const t = today(),
-          now = new Date(),
-          y = now.getFullYear(),
-          mo = now.getMonth() + 1,
-          ganjil = mo >= 7;
-        const mk = (name, rows) => {
-          MEM[name] = rows.map((r) => ({
-            id: uid(),
-            created_at: new Date().toISOString(),
-            ...r,
-          }));
-          return MEM[name];
-        };
-        mk("sekolah", [
-          {
-            nama_sekolah: "SMP Negeri 1 Contoh",
-            npsn: "10000001",
-            alamat: "Jl. Pendidikan No. 1, Jambi",
-            kepala_sekolah: "Drs. Ahmad Fauzi, M.Pd.",
-            nip_kepsek: "19700101 199512 1 001",
-            kkm_default: 75,
-            bobot_tugas: 20,
-            bobot_uh: 25,
-            bobot_uts: 20,
-            bobot_uas: 25,
-            bobot_praktik: 10,
-          },
-        ]);
-        const ta = mk("tahun_ajaran", [
-          {
-            tahun: ganjil ? `${y}/${y + 1}` : `${y - 1}/${y}`,
-            semester: ganjil ? "Ganjil" : "Genap",
-            aktif: true,
-          },
-        ])[0];
-        const [g1, g2] = mk("pengguna", [
-          {
-            username: "guru",
-            nama: "Siti Rahmawati, S.Pd.",
-            nip: "19900505 201503 2 002",
-            password_hash: "guru123",
-            aktif: true,
-          },
-          {
-            username: "guru2",
-            nama: "Budi Santoso, S.Pd.",
-            nip: "19850212 201001 1 003",
-            password_hash: "guru123",
-            aktif: true,
-          },
-        ]);
-        const mp = mk(
-          "mapel",
-          [
-            ["PAI", "Pendidikan Agama"],
-            ["PKN", "PPKn"],
-            ["BIN", "Bahasa Indonesia"],
-            ["MTK", "Matematika"],
-            ["IPA", "IPA"],
-            ["IPS", "IPS"],
-            ["BIG", "Bahasa Inggris"],
-            ["PJK", "PJOK"],
-            ["INF", "Informatika"],
-            ["SBK", "Seni Budaya"],
-            ["PKY", "Prakarya"],
-            ["BDA", "Bahasa Daerah"],
-          ].map(([kode, nama]) => ({ kode, nama, kkm: 75 })),
-        );
-        const jam = mk(
-          "jam_pelajaran",
-          [
-            [1, "07:00", "07:40"],
-            [2, "07:40", "08:20"],
-            [3, "08:20", "09:00"],
-            [4, "09:15", "09:55"],
-            [5, "09:55", "10:35"],
-            [6, "10:35", "11:15"],
-            [7, "11:15", "11:55"],
-            [8, "12:30", "13:10"],
-          ].map(([jam_ke, mulai, selesai]) => ({
-            jam_ke,
-            mulai,
-            selesai,
-            keterangan: jam_ke === 4 ? "Setelah istirahat" : null,
-          })),
-        );
-        const kl = mk(
-          "kelas",
-          [
-            ["7A", 7, "Budi Santoso, S.Pd."],
-            ["7B", 7, "Rina Marlina, S.Pd."],
-            ["8A", 8, "Dedi Kurniawan, S.Pd."],
-          ].map(([nama, tingkat, wali_kelas]) => ({
-            nama,
-            tingkat,
-            wali_kelas,
-            tahun_ajaran_id: ta.id,
-          })),
-        );
-        const mpid = (nm) => mp.find((m) => m.nama === nm).id,
-          ipa = mpid("IPA"),
-          bin = mpid("Bahasa Indonesia");
-        mk(
-          "penugasan",
-          [
-            [g1, "Matematika", 0],
-            [g1, "Matematika", 1],
-            [g1, "Matematika", 2],
-            [g2, "IPA", 0],
-            [g2, "IPA", 1],
-            [g2, "IPA", 2],
-            [g2, "Bahasa Indonesia", 0],
-          ].map(([g, mn, ki]) => ({
-            mapel_id: mpid(mn),
-            kelas_id: kl[ki].id,
-            guru_id: g.id,
-          })),
-        );
-        const F = [
-          "Ahmad",
-          "Budi",
-          "Citra",
-          "Dewi",
-          "Eka",
-          "Fajar",
-          "Gita",
-          "Hadi",
-          "Intan",
-          "Joko",
-          "Kiki",
-          "Lestari",
-          "Maya",
-          "Nanda",
-          "Oka",
-          "Putri",
-          "Rizky",
-          "Sari",
-          "Tegar",
-          "Utami",
-          "Vina",
-          "Wahyu",
-          "Yusuf",
-          "Zahra",
-        ];
-        const L = [
-          "Pratama",
-          "Saputra",
-          "Wulandari",
-          "Nugroho",
-          "Hidayat",
-          "Ramadhan",
-          "Kusuma",
-          "Lestari",
-          "Maharani",
-          "Setiawan",
-        ];
-        const sis = [];
-        kl.forEach((k, ki) => {
-          for (let i = 0; i < 16; i++) {
-            const nama = `${F[(i * 3 + ki * 5) % F.length]} ${L[(i + ki * 2) % L.length]}`;
-            sis.push({
-              nis: `26${k.tingkat}${ki + 1}${pad(i + 1)}`,
-              nisn: `00${Math.floor(rnd() * 90000000 + 10000000)}`,
-              nama,
-              jk: i % 2 ? "P" : "L",
-              tempat_lahir: "Jambi",
-              tgl_lahir: `${y - 12 - (k.tingkat - 7)}-${pad(1 + (i % 12))}-${pad(1 + ((i * 3) % 27))}`,
-              alamat: "Kota Jambi",
-              nama_ortu: `Orang tua ${nama.split(" ")[0]}`,
-              no_hp_ortu: `08121${Math.floor(rnd() * 900000 + 100000)}`,
-              kelas_id: k.id,
-              bimbingan_wali: (ki === 0 && i < 5) || (ki === 1 && i < 2),
-              guru_wali_id:
-                ki === 0 && i < 3
-                  ? g1.id
-                  : (ki === 0 && i < 5) || (ki === 1 && i < 2)
-                    ? g2.id
-                    : null,
-              aktif: true,
-            });
-          }
-        });
-        mk("siswa", sis);
-        const mtk = mp.find((m) => m.nama === "Matematika");
-        const plan = {
-          1: [
-            [0, 1, 2],
-            [2, 4, 5],
-          ],
-          2: [
-            [1, 2, 3],
-            [0, 6, 6],
-          ],
-          3: [
-            [2, 1, 2],
-            [1, 5, 6],
-          ],
-          4: [
-            [0, 3, 4],
-            [1, 7, 7],
-          ],
-          5: [
-            [1, 1, 2],
-            [2, 4, 4],
-          ],
-          6: [
-            [0, 1, 2],
-            [2, 3, 4],
-          ],
-        };
-        const jd = [];
-        Object.entries(plan).forEach(([h, arr]) =>
-          arr.forEach(([ki, a, b]) => {
-            for (let j = a; j <= b; j++)
-              jd.push({
-                hari: Number(h),
-                jam_ke: j,
-                kelas_id: kl[ki].id,
-                mapel_id: mtk.id,
-                ruang: `R. ${ki + 1}0${ki + 1}`,
-              });
-          }),
-        );
-        [
-          [1, 1, 1, 2, ipa],
-          [2, 0, 1, 2, ipa],
-          [3, 0, 3, 4, ipa],
-          [4, 2, 1, 2, ipa],
-          [5, 0, 3, 4, ipa],
-          [4, 0, 5, 6, bin],
-        ].forEach(([h, ki, a, b, mid]) => {
-          for (let j = a; j <= b; j++)
-            jd.push({
-              hari: h,
-              jam_ke: j,
-              kelas_id: kl[ki].id,
-              mapel_id: mid,
-              ruang: `R. ${ki + 1}0${ki + 1}`,
-            });
-        });
-        mk("jadwal", jd);
-        const k7a = kl[0],
-          sis7a = MEM.siswa.filter((s) => s.kelas_id === k7a.id),
-          abs = [];
-        let dd = addDays(t, -1),
-          n = 0;
-        while (n < 6) {
-          if (hariIdx(dd) !== 7) {
-            sis7a.forEach((s) => {
-              const r = rnd();
-              abs.push({
-                tanggal: dd,
-                kelas_id: k7a.id,
-                mapel_id: mtk.id,
-                siswa_id: s.id,
-                status: r < 0.06 ? "S" : r < 0.1 ? "I" : r < 0.12 ? "A" : "H",
-                keterangan: null,
-              });
-            });
-            n++;
-          }
-          dd = addDays(dd, -1);
-        }
-        {
-          let d2 = addDays(t, -2),
-            n2 = 0;
-          while (n2 < 3) {
-            if (hariIdx(d2) !== 7) {
-              sis7a.forEach((s) =>
-                abs.push({
-                  tanggal: d2,
-                  kelas_id: k7a.id,
-                  mapel_id: ipa,
-                  siswa_id: s.id,
-                  status: rnd() < 0.08 ? "S" : "H",
-                  keterangan: null,
-                }),
-              );
-              n2++;
-            }
-            d2 = addDays(d2, -1);
-          }
-        }
-        mk("absensi", abs);
-        const pn = mk(
-          "penilaian",
-          [
-            ["Tugas", "Tugas 1 - Bilangan Bulat", -24],
-            ["UH", "UH 1 - Pecahan", -14],
-            ["UTS", "Ujian Tengah Semester", -6],
-          ]
-            .map(([jenis, judul, off]) => ({
-              kelas_id: k7a.id,
-              mapel_id: mtk.id,
-              tahun_ajaran_id: ta.id,
-              jenis,
-              judul,
-              tanggal: addDays(t, off),
-            }))
-            .concat([
-              {
-                kelas_id: k7a.id,
-                mapel_id: ipa,
-                tahun_ajaran_id: ta.id,
-                jenis: "UH",
-                judul: "UH 1 - Gaya dan Gerak",
-                tanggal: addDays(t, -9),
-              },
-            ]),
-        );
-        const nl = [];
-        pn.forEach((p) =>
-          sis7a.forEach((s) =>
-            nl.push({
-              penilaian_id: p.id,
-              siswa_id: s.id,
-              nilai: Math.round(58 + rnd() * 40),
-            }),
-          ),
-        );
-        mk("nilai", nl);
-        mk(
-          "jurnal",
-          [
-            [
-              -1,
-              k7a,
-              "Bilangan bulat dan operasinya",
-              "Ceramah, tanya jawab, latihan soal",
-              "1-2",
-            ],
-            [
-              -3,
-              kl[1],
-              "Pecahan senilai",
-              "Diskusi kelompok dan presentasi",
-              "2-3",
-            ],
-            [-7, k7a, "Perbandingan", "Pembelajaran berbasis masalah", "1-2"],
-          ]
-            .map(([off, k, materi, kegiatan, jam_ke]) => ({
-              tanggal: addDays(t, off),
-              kelas_id: k.id,
-              mapel_id: mtk.id,
-              jam_ke,
-              materi,
-              kegiatan,
-              catatan: "Siswa antusias mengikuti pembelajaran.",
-            }))
-            .concat([
-              {
-                tanggal: addDays(t, -2),
-                kelas_id: kl[0].id,
-                mapel_id: ipa,
-                jam_ke: "3-4",
-                materi: "Gaya dan gerak benda",
-                kegiatan: "Praktikum sederhana dan diskusi",
-                catatan: null,
-              },
-            ]),
-        );
-        const w = MEM.siswa.filter((s) => s.bimbingan_wali);
-        mk(
-          "bimbingan",
-          [
-            [
-              0,
-              "Akademik",
-              "Kesulitan operasi pecahan",
-              "Nilai UH 1 di bawah KKM, sering ragu saat mengerjakan soal cerita.",
-              "Remedial dan latihan tambahan 2x seminggu.",
-              "Proses",
-              -5,
-            ],
-            [
-              0,
-              "Karakter",
-              "Kedisiplinan",
-              "Beberapa kali terlambat masuk kelas pada jam pertama.",
-              "Komunikasi dengan orang tua.",
-              "Selesai",
-              -9,
-            ],
-            [
-              1,
-              "Keterampilan",
-              "Minat ekstrakurikuler",
-              "Menunjukkan bakat di bidang seni lukis.",
-              "Disarankan mengikuti ekskul seni rupa.",
-              "Baru",
-              -3,
-            ],
-            [
-              2,
-              "Akademik",
-              "Motivasi belajar",
-              "Perlu dorongan agar aktif bertanya di kelas.",
-              "Beri tugas presentasi singkat.",
-              "Proses",
-              -2,
-            ],
-            [
-              3,
-              "Karakter",
-              "Kerja sama",
-              "Mudah bekerja dalam kelompok dan membantu teman.",
-              "Dipercaya menjadi ketua kelompok.",
-              "Selesai",
-              -12,
-            ],
-          ].map(([si, aspek, topik, catatan, tindak_lanjut, status, off]) => ({
-            siswa_id: w[si].id,
-            tanggal: addDays(t, off),
-            aspek,
-            topik,
-            catatan,
-            tindak_lanjut,
-            status,
-          })),
-        );
-      }
+      /* -------------------------- Setup database otomatis -------------------------- */
       async function autoSetupDatabase() {
         if (IS_PREVIEW) {
-          seedPreview();
           return;
         }
         try {
-          // cek apakah tabel masih kosong (select dijalankan di dalam fungsi SQL karena belum ada yang login)
-          const perlu = await dbRpc("setup_dibutuhkan", {});
-          if (perlu) await dbRpc("seed_awal", {}); // suntik data awal: akun guru, profil, tahun ajaran, jam, mapel
+          // Database dibuat oleh admin, tanpa penyuntikan data dummy otomatis.
+          await dbRpc("setup_dibutuhkan", {});
         } catch (e) {
           console.warn("autoSetupDatabase:", e);
           S.setupErr = e;
@@ -3544,7 +3110,7 @@
             name: "GuruKu - Administrasi Guru",
             short_name: "GuruKu",
             description:
-              "Administrasi guru SMP: kelas, siswa, jadwal, jurnal, absensi, nilai, bimbingan wali.",
+              "Administrasi guru SMA: kelas, siswa, jadwal, jurnal, absensi, nilai, bimbingan wali.",
             start_url: base,
             scope: base,
             display: "standalone",
@@ -3606,7 +3172,7 @@
         const g = S.loginTab === "guru";
         root.innerHTML = `<div class="login"><div class="lcard">
     <div class="brand"><span class="logo">${ic("slash", 26)}</span><b>GuruKu.</b></div>
-    <h2>Administrasi Guru SMP</h2><p class="sub">Admin mengelola data &amp; melihat rekap. Guru menginput absensi, jurnal, nilai dan bimbingan.</p>
+    <h2>Administrasi Guru SMA</h2><p class="sub">Admin mengelola data &amp; melihat rekap. Guru menginput absensi, jurnal, nilai dan bimbingan.</p>
     <div class="tabs"><button class="tab ${g ? "on" : ""}" data-act="loginTab" data-t="guru">Guru</button><button class="tab ${g ? "" : "on"}" data-act="loginTab" data-t="admin">Admin</button></div>
     <form data-form="login" data-mode="${g ? "guru" : "admin"}" autocomplete="on">
       <div class="fld"><label>${g ? "Username / ID" : "Email Admin"}</label><input name="u" ${g ? 'type="text" autocomplete="username"' : 'type="email" autocomplete="email"'} placeholder="${g ? "mis. guru" : "admin@sekolah.id"}" required></div>
@@ -4187,7 +3753,7 @@
 
       /* ============================= DATA KELAS ============================= */
       const kelasFields = () => [
-        { k: "nama", l: "Nama Kelas", req: 1, ph: "mis. 7A" },
+        { k: "nama", l: "Nama Kelas", req: 1, ph: "mis. 10A" },
         {
           k: "tingkat",
           l: "Tingkat",
@@ -4195,9 +3761,9 @@
           req: 1,
           num: 1,
           o: [
-            { v: 7, l: "Kelas 7" },
-            { v: 8, l: "Kelas 8" },
-            { v: 9, l: "Kelas 9" },
+            { v: 10, l: "Kelas 10" },
+            { v: 11, l: "Kelas 11" },
+            { v: 12, l: "Kelas 12" },
           ],
         },
         { k: "wali_kelas", l: "Wali Kelas", ph: "Nama wali kelas", w: "full" },
@@ -4210,7 +3776,7 @@
           title: "Kelas",
           fields: kelasFields(),
           rec,
-          defaults: { tingkat: 7, tahun_ajaran_id: ta ? ta.id : null },
+          defaults: { tingkat: 10, tahun_ajaran_id: ta ? ta.id : null },
           rl: ["kelas", "siswa", "jadwal"],
         });
       };
@@ -4708,7 +4274,7 @@
               "L",
               "Jambi",
               "2013-05-21",
-              "7A",
+              "10A",
               "Budi Pratama",
               "081234567890",
               "Jl. Merdeka No. 5",
@@ -4721,7 +4287,7 @@
               "P",
               "Jambi",
               "2013-08-02",
-              "7A",
+              "10A",
               "Rina Aisyah",
               "081298765432",
               "Jl. Melati No. 9",
@@ -4787,7 +4353,7 @@
               "kelas",
               names.map((n) => ({
                 nama: n,
-                tingkat: [7, 8, 9].includes(parseInt(n)) ? parseInt(n) : 7,
+                tingkat: [10, 11, 12].includes(parseInt(n)) ? parseInt(n) : 10,
                 tahun_ajaran_id: taAktif()?.id || null,
               })),
             );
