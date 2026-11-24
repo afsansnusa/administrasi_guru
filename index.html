@@ -7,12 +7,7 @@
       content="width=device-width,initial-scale=1,viewport-fit=cover"
     />
     <meta name="theme-color" content="#F8775F" />
-    <!-- PWA: manifest.json sebagai Data URI (disesuaikan ulang oleh JS agar start_url benar) -->
-    <link
-      rel="manifest"
-      id="ag-manifest"
-      href="data:application/manifest+json;base64,eyJuYW1lIjogIkd1cnVLdSAtIEFkbWluaXN0cmFzaSBHdXJ1IiwgInNob3J0X25hbWUiOiAiR3VydUt1IiwgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsICJzdGFydF91cmwiOiAiLiIsICJiYWNrZ3JvdW5kX2NvbG9yIjogIiNGREUzRDgiLCAidGhlbWVfY29sb3IiOiAiI0Y4Nzc1RiIsICJsYW5nIjogImlkIiwgImljb25zIjogW3sic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbDtiYXNlNjQsUEhOMlp5QjRiV3h1Y3owbmFIUjBjRG92TDNkM2R5NTNNeTV2Y21jdk1qQXdNQzl6ZG1jbklIWnBaWGRDYjNnOUp6QWdNQ0ExTVRJZ05URXlKejQ4WkdWbWN6NDhiR2x1WldGeVIzSmhaR2xsYm5RZ2FXUTlKMmNuSUhneFBTY3dKeUI1TVQwbk1DY2dlREk5SnpFbklIa3lQU2N4Sno0OGMzUnZjQ0J2Wm1aelpYUTlKekFuSUhOMGIzQXRZMjlzYjNJOUp5TTRRemREUmpBbkx6NDhjM1J2Y0NCdlptWnpaWFE5SnpFbklITjBiM0F0WTI5c2IzSTlKeU0yUkRWQ1JUQW5MejQ4TDJ4cGJtVmhja2R5WVdScFpXNTBQand2WkdWbWN6NDhjbVZqZENCM2FXUjBhRDBuTlRFeUp5Qm9aV2xuYUhROUp6VXhNaWNnY25nOUp6RXlNQ2NnWm1sc2JEMG5kWEpzS0NObktTY3ZQanh3WVhSb0lHUTlKMDB5TURBZ016WXdiRFl3TFRJd09FMHlPVEFnTXpZd2JEWXdMVEl3T0NjZ2MzUnliMnRsUFNkM2FHbDBaU2NnYzNSeWIydGxMWGRwWkhSb1BTY3pPQ2NnYzNSeWIydGxMV3hwYm1WallYQTlKM0p2ZFc1a0p5Qm1hV3hzUFNkdWIyNWxKeTgrUEM5emRtYysiLCAic2l6ZXMiOiAiNTEyeDUxMiIsICJ0eXBlIjogImltYWdlL3N2Zyt4bWwiLCAicHVycG9zZSI6ICJhbnkifV19"
-    />
+    <link rel="manifest" id="ag-manifest" href="" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
@@ -20,6 +15,7 @@
     />
     <link
       rel="icon"
+      id="ag-favicon"
       type="image/png"
       href="https://cdn.phototourl.com/anon/2026-11-23-98b51e5d-883d-4321-8c40-156f305ffa9a.jpg"
     />
@@ -43,7 +39,7 @@
         --ok: #34c38f;
         --warn: #f6b94c;
         --bad: #f2617a;
-        --glass: rgba(255, 255, 255, 0.74);
+        --glass: rgba(255, 255, 255, 0.82);
         position: fixed;
         inset: 0;
         z-index: 2147483000;
@@ -100,34 +96,31 @@
           display: none !important;
         }
 
-        /* ===== Shell ===== */
+        /* ===== Shell Penuh (Full-Viewport Laptop & Desktop) ===== */
         .shell {
           position: absolute;
-          inset: 22px;
-          border-radius: 32px;
+          inset: 0;
+          border-radius: 0;
           background: var(--glass);
           backdrop-filter: blur(26px) saturate(1.4);
           -webkit-backdrop-filter: blur(26px) saturate(1.4);
-          box-shadow:
-            0 30px 80px rgba(210, 110, 80, 0.22),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.7);
           display: grid;
-          grid-template-columns: 232px minmax(0, 1fr);
+          grid-template-columns: 224px minmax(0, 1fr);
           overflow: hidden;
         }
         .side {
-          padding: 22px 16px;
+          padding: 20px 14px;
           display: flex;
           flex-direction: column;
-          gap: 16px;
-          background: rgba(248, 248, 250, 0.55);
+          gap: 14px;
+          background: rgba(248, 248, 250, 0.68);
           border-right: 1px solid var(--line);
           overflow-y: auto;
         }
         .brand {
           display: flex;
           align-items: center;
-          gap: 10px;
+          gap: 11px;
           padding: 0 6px;
           font-size: 20px;
           color: var(--ink);
@@ -137,14 +130,22 @@
           letter-spacing: -0.02em;
         }
         .logo {
-          width: 38px;
-          height: 38px;
-          border-radius: 50%;
-          display: grid;
-          place-items: center;
-          color: #fff;
-          background: linear-gradient(135deg, var(--vio1), var(--vio2));
-          box-shadow: 0 8px 18px rgba(109, 91, 224, 0.35);
+          width: 40px;
+          height: 40px;
+          border-radius: 12px;
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex: none;
+          background: #fff;
+          box-shadow: 0 6px 16px rgba(109, 91, 224, 0.18);
+        }
+        .logo img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          display: block;
         }
         .nav {
           display: flex;
@@ -155,8 +156,8 @@
           display: flex;
           align-items: center;
           gap: 12px;
-          padding: 11px 14px;
-          border-radius: 16px;
+          padding: 10px 14px;
+          border-radius: 14px;
           color: var(--text);
           font-weight: 600;
           font-size: 13.5px;
@@ -165,29 +166,29 @@
           transition: 0.2s;
         }
         .nav-i:hover {
-          background: rgba(255, 255, 255, 0.85);
+          background: rgba(255, 255, 255, 0.9);
           color: var(--ink);
         }
         .nav-i.on {
           background: linear-gradient(135deg, var(--coral1), var(--coral2));
           color: #fff;
-          box-shadow: 0 10px 22px rgba(248, 119, 95, 0.32);
+          box-shadow: 0 8px 20px rgba(248, 119, 95, 0.3);
         }
         .sidecard {
           margin-top: auto;
           background: #fff;
-          border-radius: 24px;
-          padding: 18px 14px;
+          border-radius: 20px;
+          padding: 16px 14px;
           display: flex;
           flex-direction: column;
           align-items: center;
           gap: 4px;
           text-align: center;
-          box-shadow: 0 8px 30px rgba(120, 100, 160, 0.08);
+          box-shadow: 0 6px 24px rgba(120, 100, 160, 0.08);
         }
         .sidecard b {
           color: var(--ink);
-          font-size: 14px;
+          font-size: 13.5px;
         }
         .sidecard small {
           color: var(--muted);
@@ -195,38 +196,38 @@
           margin-bottom: 8px;
         }
         .trophy {
-          width: 54px;
-          height: 54px;
+          width: 48px;
+          height: 48px;
           border-radius: 50%;
           display: grid;
           place-items: center;
           color: #fff;
           background: linear-gradient(135deg, var(--vio1), var(--vio2));
-          box-shadow: 0 10px 22px rgba(109, 91, 224, 0.35);
-          margin-bottom: 6px;
+          box-shadow: 0 8px 20px rgba(109, 91, 224, 0.32);
+          margin-bottom: 4px;
         }
         .logout {
           display: flex;
           align-items: center;
           gap: 12px;
           padding: 8px 10px;
-          border-radius: 18px;
+          border-radius: 16px;
           font-weight: 600;
           color: var(--ink);
           transition: 0.2s;
         }
         .logout:hover {
-          background: rgba(255, 255, 255, 0.85);
+          background: rgba(255, 255, 255, 0.9);
         }
         .lo-ic {
-          width: 38px;
-          height: 38px;
+          width: 36px;
+          height: 36px;
           border-radius: 50%;
           display: grid;
           place-items: center;
           color: #fff;
           background: linear-gradient(135deg, var(--coral1), var(--coral2));
-          box-shadow: 0 8px 18px rgba(248, 119, 95, 0.35);
+          box-shadow: 0 6px 16px rgba(248, 119, 95, 0.3);
         }
         .main {
           display: flex;
@@ -238,7 +239,7 @@
           display: flex;
           align-items: center;
           gap: 16px;
-          padding: 22px 28px 14px;
+          padding: 18px 28px 12px;
         }
         .mbrand {
           display: none;
@@ -251,6 +252,7 @@
         .mbrand .logo {
           width: 32px;
           height: 32px;
+          border-radius: 9px;
         }
         .search {
           flex: 1;
@@ -259,11 +261,11 @@
           align-items: center;
           gap: 10px;
           background: #fff;
-          border-radius: 20px;
+          border-radius: 18px;
           padding: 0 18px;
-          height: 50px;
+          height: 46px;
           color: var(--muted);
-          box-shadow: 0 8px 30px rgba(120, 100, 160, 0.07);
+          box-shadow: 0 6px 24px rgba(120, 100, 160, 0.07);
         }
         .search input {
           border: 0;
@@ -290,7 +292,7 @@
           transition: 0.2s;
         }
         .iconbtn:hover {
-          background: rgba(255, 255, 255, 0.9);
+          background: rgba(255, 255, 255, 0.95);
         }
         .dot {
           position: absolute;
@@ -311,12 +313,12 @@
           color: #fff;
           font-size: 13px;
           background: linear-gradient(135deg, var(--blue1), var(--vio2));
-          box-shadow: 0 8px 18px rgba(109, 91, 224, 0.3);
+          box-shadow: 0 6px 16px rgba(109, 91, 224, 0.28);
         }
         .content {
           flex: 1;
           overflow: auto;
-          padding: 4px 28px 32px;
+          padding: 6px 28px 32px;
           scroll-behavior: smooth;
         }
         .loading {
@@ -349,6 +351,7 @@
         }
         .view {
           animation: pop 0.3s ease;
+          width: 100%;
         }
 
         /* ===== Page head ===== */
@@ -357,17 +360,17 @@
           align-items: flex-end;
           gap: 14px;
           flex-wrap: wrap;
-          margin: 6px 0 18px;
+          margin: 4px 0 18px;
         }
         .phead h1 {
-          font-size: 30px;
+          font-size: 28px;
           font-weight: 800;
           color: var(--ink);
           letter-spacing: -0.02em;
           line-height: 1.2;
         }
         .phead h1 small {
-          font-size: 15px;
+          font-size: 14.5px;
           font-weight: 500;
           color: var(--text);
           letter-spacing: 0;
@@ -384,10 +387,10 @@
           display: flex;
           align-items: center;
           gap: 10px;
-          margin: 22px 0 12px;
+          margin: 20px 0 12px;
         }
         .sec-h h2 {
-          font-size: 20px;
+          font-size: 19px;
           font-weight: 500;
           color: var(--ink);
         }
@@ -424,12 +427,12 @@
         .btn.pri {
           background: linear-gradient(135deg, var(--coral1), var(--coral2));
           color: #fff;
-          box-shadow: 0 10px 22px rgba(248, 119, 95, 0.3);
+          box-shadow: 0 8px 20px rgba(248, 119, 95, 0.28);
         }
         .btn.vio {
           background: linear-gradient(135deg, var(--vio1), var(--vio2));
           color: #fff;
-          box-shadow: 0 10px 22px rgba(109, 91, 224, 0.3);
+          box-shadow: 0 8px 20px rgba(109, 91, 224, 0.28);
         }
         .btn.bad {
           background: #fff0f3;
@@ -437,14 +440,14 @@
           box-shadow: none;
         }
         .btn.ghost {
-          background: rgba(255, 255, 255, 0.7);
+          background: rgba(255, 255, 255, 0.78);
           box-shadow: none;
           border: 1px solid var(--line);
         }
         .btn.wht {
           background: #fff;
           color: var(--ink);
-          box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+          box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
         }
         .btn.sm {
           padding: 7px 13px;
@@ -512,7 +515,7 @@
           display: flex;
           gap: 6px;
           flex-wrap: wrap;
-          background: rgba(255, 255, 255, 0.6);
+          background: rgba(255, 255, 255, 0.72);
           padding: 5px;
           border-radius: 999px;
           width: fit-content;
@@ -535,7 +538,7 @@
         .tab.on {
           background: linear-gradient(135deg, var(--coral1), var(--coral2));
           color: #fff;
-          box-shadow: 0 8px 18px rgba(248, 119, 95, 0.3);
+          box-shadow: 0 8px 18px rgba(248, 119, 95, 0.28);
         }
         .tab em {
           font-style: normal;
@@ -546,9 +549,10 @@
         /* ===== Cards, tables ===== */
         .card {
           background: #fff;
-          border-radius: 24px;
-          padding: 20px;
-          box-shadow: 0 8px 30px rgba(120, 100, 160, 0.08);
+          border-radius: 22px;
+          padding: 22px;
+          box-shadow: 0 8px 28px rgba(120, 100, 160, 0.08);
+          width: 100%;
         }
         .card.flat {
           box-shadow: none;
@@ -596,7 +600,8 @@
         }
         .tbl-wrap {
           overflow: auto;
-          border-radius: 18px;
+          border-radius: 16px;
+          width: 100%;
         }
         .tbl {
           width: 100%;
@@ -747,23 +752,23 @@
         /* ===== Dashboard ===== */
         .dash {
           display: grid;
-          grid-template-columns: minmax(0, 1fr) 300px;
-          gap: 24px;
+          grid-template-columns: minmax(0, 1fr) 280px;
+          gap: 22px;
           align-items: start;
         }
         .stats {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
-          gap: 12px;
+          gap: 14px;
         }
         .stat {
           background: #fff;
-          border-radius: 22px;
-          padding: 14px;
+          border-radius: 20px;
+          padding: 15px;
           display: flex;
           align-items: center;
           gap: 12px;
-          box-shadow: 0 8px 30px rgba(120, 100, 160, 0.07);
+          box-shadow: 0 8px 26px rgba(120, 100, 160, 0.07);
         }
         .bub {
           width: 46px;
@@ -790,20 +795,20 @@
         }
         .qa {
           display: grid;
-          grid-template-columns: repeat(3, 1fr) 120px;
+          grid-template-columns: repeat(3, 1fr) 124px;
           gap: 14px;
         }
         .qcard {
           position: relative;
           overflow: hidden;
-          border-radius: 26px;
+          border-radius: 24px;
           padding: 16px;
           color: #fff;
           display: flex;
           flex-direction: column;
           gap: 2px;
-          min-height: 158px;
-          box-shadow: 0 14px 28px rgba(120, 100, 160, 0.2);
+          min-height: 152px;
+          box-shadow: 0 12px 26px rgba(120, 100, 160, 0.18);
         }
         .qcard:after {
           content: "";
@@ -854,7 +859,7 @@
           z-index: 1;
         }
         .qmore {
-          border-radius: 26px;
+          border-radius: 24px;
           background: #fff;
           display: flex;
           flex-direction: column;
@@ -863,7 +868,7 @@
           gap: 10px;
           color: var(--ink);
           font-weight: 700;
-          box-shadow: 0 8px 30px rgba(120, 100, 160, 0.08);
+          box-shadow: 0 8px 26px rgba(120, 100, 160, 0.08);
           cursor: pointer;
           transition: 0.2s;
         }
@@ -880,17 +885,17 @@
           place-items: center;
         }
         .dcard {
-          background: rgba(255, 255, 255, 0.8);
-          border-radius: 28px;
+          background: rgba(255, 255, 255, 0.88);
+          border-radius: 24px;
           padding: 18px;
-          box-shadow: 0 8px 30px rgba(120, 100, 160, 0.07);
+          box-shadow: 0 8px 26px rgba(120, 100, 160, 0.07);
         }
         .strip {
           display: flex;
           gap: 6px;
           overflow: auto;
           background: #f6f5fa;
-          border-radius: 20px;
+          border-radius: 18px;
           padding: 8px;
           margin-bottom: 14px;
         }
@@ -1017,15 +1022,15 @@
           font-size: 12.5px;
         }
         .rpanel {
-          background: rgba(247, 247, 250, 0.85);
-          border-radius: 28px;
-          padding: 22px;
+          background: rgba(247, 247, 250, 0.92);
+          border-radius: 24px;
+          padding: 20px;
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          gap: 15px;
         }
         .rpanel h2 {
-          font-size: 22px;
+          font-size: 21px;
           font-weight: 500;
           color: var(--ink);
         }
@@ -1205,7 +1210,7 @@
         }
         .pop {
           position: absolute;
-          top: 76px;
+          top: 72px;
           right: 26px;
           z-index: 60;
           width: min(330px, calc(100% - 28px));
@@ -1249,41 +1254,123 @@
           overflow: auto;
         }
         .lcard {
-          width: min(420px, 100%);
-          background: var(--glass);
+          width: min(440px, 100%);
+          background: rgba(255, 255, 255, 0.92);
           backdrop-filter: blur(26px);
           -webkit-backdrop-filter: blur(26px);
-          border-radius: 32px;
+          border-radius: 36px;
           padding: 34px 30px;
           box-shadow:
-            0 30px 80px rgba(210, 110, 80, 0.25),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.8);
+            0 30px 80px rgba(210, 110, 80, 0.22),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.9);
           display: flex;
           flex-direction: column;
-          gap: 16px;
+          gap: 14px;
+        }
+        .lhero {
+          position: relative;
+          height: 164px;
+          border-radius: 26px;
+          background: linear-gradient(
+            155deg,
+            #ffd1be 0%,
+            #ffa07a 48%,
+            #f8775f 100%
+          );
+          overflow: hidden;
+          display: grid;
+          place-items: center;
+          margin-bottom: 2px;
+          box-shadow: 0 14px 30px rgba(248, 119, 95, 0.26);
+        }
+        .lhero:before {
+          content: "";
+          position: absolute;
+          width: 190px;
+          height: 190px;
+          border-radius: 50%;
+          background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.45),
+            transparent 70%
+          );
+          top: -55px;
+          right: -40px;
+        }
+        .lhero:after {
+          content: "";
+          position: absolute;
+          width: 130px;
+          height: 130px;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.16);
+          bottom: -45px;
+          left: -25px;
+        }
+        .lhero-badge {
+          position: relative;
+          z-index: 1;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          gap: 8px;
+          color: #fff;
+          text-align: center;
+        }
+        .lhero-logo {
+          width: 68px;
+          height: 68px;
+          border-radius: 22px;
+          overflow: hidden;
+          background: #fff;
+          padding: 3px;
+          box-shadow: 0 12px 28px rgba(38, 34, 63, 0.18);
+        }
+        .lhero-logo img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          border-radius: 19px;
+          display: block;
+        }
+        .lhero-pill {
+          background: rgba(255, 255, 255, 0.24);
+          backdrop-filter: blur(8px);
+          padding: 4px 12px;
+          border-radius: 999px;
+          font-size: 11px;
+          font-weight: 700;
+          letter-spacing: 0.03em;
+          color: #fff;
         }
         .lcard .brand {
           justify-content: center;
           font-size: 26px;
+          margin-top: 2px;
         }
         .lcard .logo {
-          width: 48px;
-          height: 48px;
+          width: 46px;
+          height: 46px;
+          border-radius: 14px;
         }
         .lcard h2 {
           text-align: center;
           color: var(--ink);
-          font-size: 18px;
-          font-weight: 700;
+          font-size: 20px;
+          font-weight: 800;
+          line-height: 1.25;
+          letter-spacing: -0.02em;
         }
         .lcard .sub {
           text-align: center;
-          font-size: 13px;
-          margin-top: -10px;
+          font-size: 12.5px;
+          color: var(--text);
+          line-height: 1.5;
+          margin-top: -6px;
         }
         .lcard .tabs {
           width: 100%;
-          margin: 0;
+          margin: 4px 0 0;
         }
         .lcard .tabs .tab {
           flex: 1;
@@ -1292,7 +1379,7 @@
         .lcard form {
           display: flex;
           flex-direction: column;
-          gap: 14px;
+          gap: 13px;
         }
 
         /* ===== Jadwal ===== */
@@ -1870,7 +1957,7 @@
           outline: 2px solid var(--vio1);
           outline-offset: -2px;
         }
-        @media (max-width: 1180px) {
+        @media (max-width: 1080px) {
           .dash {
             grid-template-columns: 1fr;
           }
@@ -1878,10 +1965,8 @@
             order: 2;
           }
         }
-        @media (max-width: 860px) {
+        @media (max-width: 820px) {
           .shell {
-            inset: 0;
-            border-radius: 0;
             grid-template-columns: 1fr;
           }
           .side {
@@ -1935,7 +2020,7 @@
             bottom: calc(14px + env(safe-area-inset-bottom));
             height: 66px;
             z-index: 40;
-            background: rgba(255, 255, 255, 0.82);
+            background: rgba(255, 255, 255, 0.88);
             backdrop-filter: blur(20px) saturate(1.5);
             -webkit-backdrop-filter: blur(20px) saturate(1.5);
             border-radius: 26px;
@@ -2019,7 +2104,7 @@
     <div id="ag"></div>
     <script type="module">
       /* =====================================================================
-   GURUKU — Administrasi Guru SMA  (Supabase • PWA • 1 file • Glassmorphism)
+   GURUKU — Administrasi Guru SMP  (Supabase • PWA • 1 file • Glassmorphism)
    ===================================================================== */
       // KONFIGURASI APLIKASI
       const IS_PREVIEW = false; // Set false JIKA SUDAH TERHUBUNG KE SUPABASE
@@ -2027,6 +2112,9 @@
       const SUPABASE_URL = "https://bcrnjtxhidvchdexbyok.supabase.co";
       const SUPABASE_ANON_KEY =
         "sb_publishable_TKFRHCFxCfKI_OcpyCl2QQ_RQK4ThPz";
+
+      // UBAH URL GAMBAR LOGO DI BAWAH INI UNTUK MENGGANTI LOGO APLIKASI & FAVICON
+      const APP_LOGO_URL = "https://www.imghippo.com/i/HKmy5765Nik.png";
 
       let sb = null,
         sbError = null;
@@ -2227,6 +2315,8 @@
       const AVC = ["g-vio", "g-pink", "g-ora", "g-blue", "g-coral"];
       const avatar = (n, big) =>
         `<span class="avatar ${AVC[hashN(n) % 5]}" ${big ? 'style="width:46px;height:46px;font-size:15px"' : ""}>${esc(ini(n))}</span>`;
+      const logoBox = () =>
+        `<span class="logo"><img src="${esc(APP_LOGO_URL)}" alt="Logo GuruKu"></span>`;
       const K = (id) => D.kelas.find((k) => k.id === id);
       const M = (id) => D.mapel.find((m) => m.id === id);
       const SW = (id) => D.siswa.find((s) => s.id === id);
@@ -2774,6 +2864,9 @@
             if (args.p_password) u.password_hash = args.p_password;
             return true;
           }
+          case "seed_awal":
+            seedPreview();
+            return true;
         }
         return null;
       }
@@ -2801,14 +2894,444 @@
         );
       }
 
-      /* -------------------------- Setup database otomatis -------------------------- */
+      /* ------------------- Setup database otomatis & data uji ------------------- */
+      function seedPreview() {
+        if (MEM.__seeded) return;
+        MEM.__seeded = true;
+        let seed = 11;
+        const rnd = () => {
+          seed = (seed * 9301 + 49297) % 233280;
+          return seed / 233280;
+        };
+        const t = today(),
+          now = new Date(),
+          y = now.getFullYear(),
+          mo = now.getMonth() + 1,
+          ganjil = mo >= 7;
+        const mk = (name, rows) => {
+          MEM[name] = rows.map((r) => ({
+            id: uid(),
+            created_at: new Date().toISOString(),
+            ...r,
+          }));
+          return MEM[name];
+        };
+        mk("sekolah", [
+          {
+            nama_sekolah: "SMP Negeri 1 Contoh",
+            npsn: "10000001",
+            alamat: "Jl. Pendidikan No. 1, Jambi",
+            kepala_sekolah: "Drs. Ahmad Fauzi, M.Pd.",
+            nip_kepsek: "19700101 199512 1 001",
+            kkm_default: 75,
+            bobot_tugas: 20,
+            bobot_uh: 25,
+            bobot_uts: 20,
+            bobot_uas: 25,
+            bobot_praktik: 10,
+          },
+        ]);
+        const ta = mk("tahun_ajaran", [
+          {
+            tahun: ganjil ? `${y}/${y + 1}` : `${y - 1}/${y}`,
+            semester: ganjil ? "Ganjil" : "Genap",
+            aktif: true,
+          },
+        ])[0];
+        const [g1, g2] = mk("pengguna", [
+          {
+            username: "guru",
+            nama: "Siti Rahmawati, S.Pd.",
+            nip: "19900505 201503 2 002",
+            password_hash: "guru123",
+            aktif: true,
+          },
+          {
+            username: "guru2",
+            nama: "Budi Santoso, S.Pd.",
+            nip: "19850212 201001 1 003",
+            password_hash: "guru123",
+            aktif: true,
+          },
+        ]);
+        const mp = mk(
+          "mapel",
+          [
+            ["PAI", "Pendidikan Agama"],
+            ["PKN", "PPKn"],
+            ["BIN", "Bahasa Indonesia"],
+            ["MTK", "Matematika"],
+            ["IPA", "IPA"],
+            ["IPS", "IPS"],
+            ["BIG", "Bahasa Inggris"],
+            ["PJK", "PJOK"],
+            ["INF", "Informatika"],
+            ["SBK", "Seni Budaya"],
+            ["PKY", "Prakarya"],
+            ["BDA", "Bahasa Daerah"],
+          ].map(([kode, nama]) => ({ kode, nama, kkm: 75 })),
+        );
+        const jam = mk(
+          "jam_pelajaran",
+          [
+            [1, "07:00", "07:40"],
+            [2, "07:40", "08:20"],
+            [3, "08:20", "09:00"],
+            [4, "09:15", "09:55"],
+            [5, "09:55", "10:35"],
+            [6, "10:35", "11:15"],
+            [7, "11:15", "11:55"],
+            [8, "12:30", "13:10"],
+          ].map(([jam_ke, mulai, selesai]) => ({
+            jam_ke,
+            mulai,
+            selesai,
+            keterangan: jam_ke === 4 ? "Setelah istirahat" : null,
+          })),
+        );
+        const kl = mk(
+          "kelas",
+          [
+            ["7A", 7, "Budi Santoso, S.Pd."],
+            ["7B", 7, "Rina Marlina, S.Pd."],
+            ["8A", 8, "Dedi Kurniawan, S.Pd."],
+          ].map(([nama, tingkat, wali_kelas]) => ({
+            nama,
+            tingkat,
+            wali_kelas,
+            tahun_ajaran_id: ta.id,
+          })),
+        );
+        const mpid = (nm) => mp.find((m) => m.nama === nm).id,
+          ipa = mpid("IPA"),
+          bin = mpid("Bahasa Indonesia");
+        mk(
+          "penugasan",
+          [
+            [g1, "Matematika", 0],
+            [g1, "Matematika", 1],
+            [g1, "Matematika", 2],
+            [g2, "IPA", 0],
+            [g2, "IPA", 1],
+            [g2, "IPA", 2],
+            [g2, "Bahasa Indonesia", 0],
+          ].map(([g, mn, ki]) => ({
+            mapel_id: mpid(mn),
+            kelas_id: kl[ki].id,
+            guru_id: g.id,
+          })),
+        );
+        const F = [
+          "Ahmad",
+          "Budi",
+          "Citra",
+          "Dewi",
+          "Eka",
+          "Fajar",
+          "Gita",
+          "Hadi",
+          "Intan",
+          "Joko",
+          "Kiki",
+          "Lestari",
+          "Maya",
+          "Nanda",
+          "Oka",
+          "Putri",
+          "Rizky",
+          "Sari",
+          "Tegar",
+          "Utami",
+          "Vina",
+          "Wahyu",
+          "Yusuf",
+          "Zahra",
+        ];
+        const L = [
+          "Pratama",
+          "Saputra",
+          "Wulandari",
+          "Nugroho",
+          "Hidayat",
+          "Ramadhan",
+          "Kusuma",
+          "Lestari",
+          "Maharani",
+          "Setiawan",
+        ];
+        const sis = [];
+        kl.forEach((k, ki) => {
+          for (let i = 0; i < 16; i++) {
+            const nama = `${F[(i * 3 + ki * 5) % F.length]} ${L[(i + ki * 2) % L.length]}`;
+            sis.push({
+              nis: `26${k.tingkat}${ki + 1}${pad(i + 1)}`,
+              nisn: `00${Math.floor(rnd() * 90000000 + 10000000)}`,
+              nama,
+              jk: i % 2 ? "P" : "L",
+              tempat_lahir: "Jambi",
+              tgl_lahir: `${y - 12 - (k.tingkat - 7)}-${pad(1 + (i % 12))}-${pad(1 + ((i * 3) % 27))}`,
+              alamat: "Kota Jambi",
+              nama_ortu: `Orang tua ${nama.split(" ")[0]}`,
+              no_hp_ortu: `08121${Math.floor(rnd() * 900000 + 100000)}`,
+              kelas_id: k.id,
+              bimbingan_wali: (ki === 0 && i < 5) || (ki === 1 && i < 2),
+              guru_wali_id:
+                ki === 0 && i < 3
+                  ? g1.id
+                  : (ki === 0 && i < 5) || (ki === 1 && i < 2)
+                    ? g2.id
+                    : null,
+              aktif: true,
+            });
+          }
+        });
+        mk("siswa", sis);
+        const mtk = mp.find((m) => m.nama === "Matematika");
+        const plan = {
+          1: [
+            [0, 1, 2],
+            [2, 4, 5],
+          ],
+          2: [
+            [1, 2, 3],
+            [0, 6, 6],
+          ],
+          3: [
+            [2, 1, 2],
+            [1, 5, 6],
+          ],
+          4: [
+            [0, 3, 4],
+            [1, 7, 7],
+          ],
+          5: [
+            [1, 1, 2],
+            [2, 4, 4],
+          ],
+          6: [
+            [0, 1, 2],
+            [2, 3, 4],
+          ],
+        };
+        const jd = [];
+        Object.entries(plan).forEach(([h, arr]) =>
+          arr.forEach(([ki, a, b]) => {
+            for (let j = a; j <= b; j++)
+              jd.push({
+                hari: Number(h),
+                jam_ke: j,
+                kelas_id: kl[ki].id,
+                mapel_id: mtk.id,
+                ruang: `R. ${ki + 1}0${ki + 1}`,
+              });
+          }),
+        );
+        [
+          [1, 1, 1, 2, ipa],
+          [2, 0, 1, 2, ipa],
+          [3, 0, 3, 4, ipa],
+          [4, 2, 1, 2, ipa],
+          [5, 0, 3, 4, ipa],
+          [4, 0, 5, 6, bin],
+        ].forEach(([h, ki, a, b, mid]) => {
+          for (let j = a; j <= b; j++)
+            jd.push({
+              hari: h,
+              jam_ke: j,
+              kelas_id: kl[ki].id,
+              mapel_id: mid,
+              ruang: `R. ${ki + 1}0${ki + 1}`,
+            });
+        });
+        mk("jadwal", jd);
+        const k7a = kl[0],
+          sis7a = MEM.siswa.filter((s) => s.kelas_id === k7a.id),
+          abs = [];
+        let dd = addDays(t, -1),
+          n = 0;
+        while (n < 6) {
+          if (hariIdx(dd) !== 7) {
+            sis7a.forEach((s) => {
+              const r = rnd();
+              abs.push({
+                tanggal: dd,
+                kelas_id: k7a.id,
+                mapel_id: mtk.id,
+                siswa_id: s.id,
+                status: r < 0.06 ? "S" : r < 0.1 ? "I" : r < 0.12 ? "A" : "H",
+                keterangan: null,
+              });
+            });
+            n++;
+          }
+          dd = addDays(dd, -1);
+        }
+        {
+          let d2 = addDays(t, -2),
+            n2 = 0;
+          while (n2 < 3) {
+            if (hariIdx(d2) !== 7) {
+              sis7a.forEach((s) =>
+                abs.push({
+                  tanggal: d2,
+                  kelas_id: k7a.id,
+                  mapel_id: ipa,
+                  siswa_id: s.id,
+                  status: rnd() < 0.08 ? "S" : "H",
+                  keterangan: null,
+                }),
+              );
+              n2++;
+            }
+            d2 = addDays(d2, -1);
+          }
+        }
+        mk("absensi", abs);
+        const pn = mk(
+          "penilaian",
+          [
+            ["Tugas", "Tugas 1 - Bilangan Bulat", -24],
+            ["UH", "UH 1 - Pecahan", -14],
+            ["UTS", "Ujian Tengah Semester", -6],
+          ]
+            .map(([jenis, judul, off]) => ({
+              kelas_id: k7a.id,
+              mapel_id: mtk.id,
+              tahun_ajaran_id: ta.id,
+              jenis,
+              judul,
+              tanggal: addDays(t, off),
+            }))
+            .concat([
+              {
+                kelas_id: k7a.id,
+                mapel_id: ipa,
+                tahun_ajaran_id: ta.id,
+                jenis: "UH",
+                judul: "UH 1 - Gaya dan Gerak",
+                tanggal: addDays(t, -9),
+              },
+            ]),
+        );
+        const nl = [];
+        pn.forEach((p) =>
+          sis7a.forEach((s) =>
+            nl.push({
+              penilaian_id: p.id,
+              siswa_id: s.id,
+              nilai: Math.round(58 + rnd() * 40),
+            }),
+          ),
+        );
+        mk("nilai", nl);
+        mk(
+          "jurnal",
+          [
+            [
+              -1,
+              k7a,
+              "Bilangan bulat dan operasinya",
+              "Ceramah, tanya jawab, latihan soal",
+              "1-2",
+            ],
+            [
+              -3,
+              kl[1],
+              "Pecahan senilai",
+              "Diskusi kelompok dan presentasi",
+              "2-3",
+            ],
+            [-7, k7a, "Perbandingan", "Pembelajaran berbasis masalah", "1-2"],
+          ]
+            .map(([off, k, materi, kegiatan, jam_ke]) => ({
+              tanggal: addDays(t, off),
+              kelas_id: k.id,
+              mapel_id: mtk.id,
+              jam_ke,
+              materi,
+              kegiatan,
+              catatan: "Siswa antusias mengikuti pembelajaran.",
+            }))
+            .concat([
+              {
+                tanggal: addDays(t, -2),
+                kelas_id: kl[0].id,
+                mapel_id: ipa,
+                jam_ke: "3-4",
+                materi: "Gaya dan gerak benda",
+                kegiatan: "Praktikum sederhana dan diskusi",
+                catatan: null,
+              },
+            ]),
+        );
+        const w = MEM.siswa.filter((s) => s.bimbingan_wali);
+        mk(
+          "bimbingan",
+          [
+            [
+              0,
+              "Akademik",
+              "Kesulitan operasi pecahan",
+              "Nilai UH 1 di bawah KKM, sering ragu saat mengerjakan soal cerita.",
+              "Remedial dan latihan tambahan 2x seminggu.",
+              "Proses",
+              -5,
+            ],
+            [
+              0,
+              "Karakter",
+              "Kedisiplinan",
+              "Beberapa kali terlambat masuk kelas pada jam pertama.",
+              "Komunikasi dengan orang tua.",
+              "Selesai",
+              -9,
+            ],
+            [
+              1,
+              "Keterampilan",
+              "Minat ekstrakurikuler",
+              "Menunjukkan bakat di bidang seni lukis.",
+              "Disarankan mengikuti ekskul seni rupa.",
+              "Baru",
+              -3,
+            ],
+            [
+              2,
+              "Akademik",
+              "Motivasi belajar",
+              "Perlu dorongan agar aktif bertanya di kelas.",
+              "Beri tugas presentasi singkat.",
+              "Proses",
+              -2,
+            ],
+            [
+              3,
+              "Karakter",
+              "Kerja sama",
+              "Mudah bekerja dalam kelompok dan membantu teman.",
+              "Dipercaya menjadi ketua kelompok.",
+              "Selesai",
+              -12,
+            ],
+          ].map(([si, aspek, topik, catatan, tindak_lanjut, status, off]) => ({
+            siswa_id: w[si].id,
+            tanggal: addDays(t, off),
+            aspek,
+            topik,
+            catatan,
+            tindak_lanjut,
+            status,
+          })),
+        );
+      }
       async function autoSetupDatabase() {
         if (IS_PREVIEW) {
+          seedPreview();
           return;
         }
         try {
-          // Database dibuat oleh admin, tanpa penyuntikan data dummy otomatis.
-          await dbRpc("setup_dibutuhkan", {});
+          const perlu = await dbRpc("setup_dibutuhkan", {});
+          if (perlu) await dbRpc("seed_awal", {});
         } catch (e) {
           console.warn("autoSetupDatabase:", e);
           S.setupErr = e;
@@ -3098,19 +3621,16 @@
       };
 
       /* --------------------------- PWA (1 file) --------------------------- */
-      function iconDataURI() {
-        const svg =
-          "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0' y1='0' x2='1' y2='1'><stop offset='0' stop-color='#8C7CF0'/><stop offset='1' stop-color='#6D5BE0'/></linearGradient></defs><rect width='512' height='512' rx='120' fill='url(#g)'/><path d='M200 360l60-208M290 360l60-208' stroke='white' stroke-width='38' stroke-linecap='round' fill='none'/></svg>";
-        return "data:image/svg+xml;base64," + btoa(svg);
-      }
       function setupPWA() {
         try {
           const base = location.href.split("#")[0];
+          const fav = document.getElementById("ag-favicon");
+          if (fav && APP_LOGO_URL) fav.href = APP_LOGO_URL;
           const manifest = {
             name: "GuruKu - Administrasi Guru",
             short_name: "GuruKu",
             description:
-              "Administrasi guru SMA: kelas, siswa, jadwal, jurnal, absensi, nilai, bimbingan wali.",
+              "Administrasi guru SMP: kelas, siswa, jadwal, jurnal, absensi, nilai, bimbingan wali.",
             start_url: base,
             scope: base,
             display: "standalone",
@@ -3120,9 +3640,9 @@
             lang: "id",
             icons: [
               {
-                src: iconDataURI(),
+                src: APP_LOGO_URL,
                 sizes: "512x512",
-                type: "image/svg+xml",
+                type: "image/png",
                 purpose: "any",
               },
             ],
@@ -3149,7 +3669,7 @@
             "serviceWorker" in navigator &&
             /^https?:$/.test(location.protocol)
           ) {
-            const code = `const C='guruku-v1';self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const c=r.clone();if(r.ok&&e.request.url.startsWith(self.location.origin))caches.open(C).then(x=>x.put(e.request,c)).catch(()=>{});return r;}).catch(()=>caches.match(e.request)));});`;
+            const code = `const C='guruku-v2';self.addEventListener('install',e=>self.skipWaiting());self.addEventListener('activate',e=>e.waitUntil(clients.claim()));self.addEventListener('fetch',e=>{if(e.request.method!=='GET')return;e.respondWith(fetch(e.request).then(r=>{const c=r.clone();if(r.ok&&e.request.url.startsWith(self.location.origin))caches.open(C).then(x=>x.put(e.request,c)).catch(()=>{});return r;}).catch(()=>caches.match(e.request)));});`;
             const url = URL.createObjectURL(
               new Blob([code], { type: "text/javascript" }),
             );
@@ -3171,13 +3691,20 @@
       function renderLogin() {
         const g = S.loginTab === "guru";
         root.innerHTML = `<div class="login"><div class="lcard">
-    <div class="brand"><span class="logo">${ic("slash", 26)}</span><b>GuruKu.</b></div>
-    <h2>Administrasi Guru SMA</h2><p class="sub">Admin mengelola data &amp; melihat rekap. Guru menginput absensi, jurnal, nilai dan bimbingan.</p>
+    <div class="lhero">
+      <div class="lhero-badge">
+        <div class="lhero-logo"><img src="${esc(APP_LOGO_URL)}" alt="Logo GuruKu"></div>
+        <span class="lhero-pill">Sistem Administrasi Sekolah</span>
+      </div>
+    </div>
+    <div class="brand"><b>GuruKu.</b></div>
+    <h2>Kelola Kelas &amp; Pembelajaran Lebih Mudah</h2>
+    <p class="sub">Platform terpadu untuk jadwal mengajar, jurnal harian, daftar hadir, buku nilai, dan bimbingan guru wali.</p>
     <div class="tabs"><button class="tab ${g ? "on" : ""}" data-act="loginTab" data-t="guru">Guru</button><button class="tab ${g ? "" : "on"}" data-act="loginTab" data-t="admin">Admin</button></div>
     <form data-form="login" data-mode="${g ? "guru" : "admin"}" autocomplete="on">
       <div class="fld"><label>${g ? "Username / ID" : "Email Admin"}</label><input name="u" ${g ? 'type="text" autocomplete="username"' : 'type="email" autocomplete="email"'} placeholder="${g ? "mis. guru" : "admin@sekolah.id"}" required></div>
       <div class="fld"><label>Password</label><input name="p" type="password" autocomplete="current-password" placeholder="••••••••" required></div>
-      <button class="btn pri" type="submit" style="padding:13px">Masuk</button>
+      <button class="btn pri" type="submit" style="padding:13.5px;font-size:14px;margin-top:2px">Mulai Masuk</button>
     </form>
     ${IS_PREVIEW ? `<div class="note"><b>Mode Preview</b> (data uji, tidak disimpan ke Supabase).<br>Guru: <b>guru</b> atau <b>guru2</b> / <b>guru123</b><br>Admin: <b>admin@sekolah.id</b> / <b>admin123</b></div>` : ""}
     ${S.setupErr ? `<div class="note" style="background:#ffe9ee;color:#d8435f">Database belum siap. Jalankan SQL di Supabase terlebih dahulu.</div>` : ""}
@@ -3249,7 +3776,6 @@
           if (o && o.role === "guru" && o.user) {
             GURU_TOKEN = o.user.token || null;
             if (!IS_PREVIEW) {
-              // pastikan token sesi masih berlaku
               let ok = false;
               try {
                 ok = await dbRpc("sesi_valid", {});
@@ -3371,14 +3897,14 @@
           `<button data-act="more">${ic("more", 20)}<span>Lainnya</span></button>`;
         root.innerHTML = `<div class="shell">
   <aside class="side">
-    <div class="brand"><span class="logo">${ic("slash", 20)}</span><b>GuruKu.</b></div>
+    <div class="brand">${logoBox()}<b>GuruKu.</b></div>
     <nav class="nav">${nav}</nav>
-    <div class="sidecard"><span class="trophy">${ic("trophy", 26)}</span><b>Tahun Ajaran</b><small>${ta ? esc(ta.tahun) + " • " + esc(ta.semester) : "Belum diatur"}</small><button class="btn pri sm" data-go="pengaturan" data-tab="ta">Atur</button></div>
+    <div class="sidecard"><span class="trophy">${ic("trophy", 24)}</span><b>Tahun Ajaran</b><small>${ta ? esc(ta.tahun) + " • " + esc(ta.semester) : "Belum diatur"}</small><button class="btn pri sm" data-go="pengaturan" data-tab="ta">Atur</button></div>
     <button class="logout" data-act="logout"><span class="lo-ic">${ic("out", 18)}</span>Keluar</button>
   </aside>
   <div class="main">
     <header class="top">
-      <div class="mbrand"><span class="logo">${ic("slash", 16)}</span>GuruKu.</div>
+      <div class="mbrand">${logoBox()}GuruKu.</div>
       <label class="search">${ic("search", 18)}<input id="gsearch" data-in="gsearch" placeholder="Cari siswa (nama / NIS)…" autocomplete="off"></label>
       <div class="top-r"><button class="iconbtn" data-act="bell" data-pop aria-label="Pengingat">${ic("bell", 20)}<i class="dot" id="bdot"></i></button><button class="avatar-btn" data-act="avatar" data-pop aria-label="Akun">${esc(ini(S.user.nama || S.user.email))}</button></div>
     </header>
@@ -3583,6 +4109,7 @@
           closeSheet();
         }
       });
+
       /* =========================== DASHBOARD =========================== */
       PAGES.dashboard = {
         async render() {
@@ -3753,7 +4280,7 @@
 
       /* ============================= DATA KELAS ============================= */
       const kelasFields = () => [
-        { k: "nama", l: "Nama Kelas", req: 1, ph: "mis. 10A" },
+        { k: "nama", l: "Nama Kelas", req: 1, ph: "mis. 7A" },
         {
           k: "tingkat",
           l: "Tingkat",
@@ -3761,9 +4288,9 @@
           req: 1,
           num: 1,
           o: [
-            { v: 10, l: "Kelas 10" },
-            { v: 11, l: "Kelas 11" },
-            { v: 12, l: "Kelas 12" },
+            { v: 7, l: "Kelas 7" },
+            { v: 8, l: "Kelas 8" },
+            { v: 9, l: "Kelas 9" },
           ],
         },
         { k: "wali_kelas", l: "Wali Kelas", ph: "Nama wali kelas", w: "full" },
@@ -3776,7 +4303,7 @@
           title: "Kelas",
           fields: kelasFields(),
           rec,
-          defaults: { tingkat: 10, tahun_ajaran_id: ta ? ta.id : null },
+          defaults: { tingkat: 7, tahun_ajaran_id: ta ? ta.id : null },
           rl: ["kelas", "siswa", "jadwal"],
         });
       };
@@ -4274,7 +4801,7 @@
               "L",
               "Jambi",
               "2013-05-21",
-              "10A",
+              "7A",
               "Budi Pratama",
               "081234567890",
               "Jl. Merdeka No. 5",
@@ -4287,7 +4814,7 @@
               "P",
               "Jambi",
               "2013-08-02",
-              "10A",
+              "7A",
               "Rina Aisyah",
               "081298765432",
               "Jl. Melati No. 9",
@@ -4353,7 +4880,7 @@
               "kelas",
               names.map((n) => ({
                 nama: n,
-                tingkat: [10, 11, 12].includes(parseInt(n)) ? parseInt(n) : 10,
+                tingkat: [7, 8, 9].includes(parseInt(n)) ? parseInt(n) : 7,
                 tahun_ajaran_id: taAktif()?.id || null,
               })),
             );
@@ -5651,6 +6178,7 @@
           guruTtd(t.gid),
         );
       };
+
       /* ============================ BIMBINGAN GURU WALI ============================ */
       const waliList = () =>
         D.siswa.filter(
@@ -6162,42 +6690,32 @@
         <div class="note">Anda masuk sebagai <b>Admin</b> (${esc(S.user.email || "")}). Password admin dikelola di Supabase → Authentication → Users. Mapel & kelas tiap guru diatur di menu <b>Mata Pelajaran</b>.</div></div>`;
             } else
               body = `<div class="card" style="max-width:460px;margin-bottom:14px"><h3 style="color:var(--ink);margin-bottom:10px">Profil Saya</h3><div class="irow" style="margin-bottom:8px">${bub("user", "g-vio")}<div><small>Nama</small><b>${esc(S.user.nama || "-")}</b></div></div><div class="irow" style="margin-bottom:8px">${bub("file", "g-blue")}<div><small>Username • NIP</small><b>${esc(S.user.username || "-")} • ${esc(S.user.nip || "-")}</b></div></div><p class="muted">Nama dan NIP ini tampil pada tanda tangan laporan cetak. Perubahan data diminta ke Admin.</p></div>
-      <div class="card" style="max-width:460px"><h3 style="color:var(--ink);margin-bottom:12px">Ganti Password</h3><form data-form="gantiPw" style="display:flex;flex-direction:column;gap:12px"><div class="fld"><label>Password lama</label><input name="lama" type="password" required autocomplete="current-password"></div><div class="fld"><label>Password baru</label><input name="baru" type="password" required minlength="6" autocomplete="new-password"></div><div class="fld"><label>Ulangi password baru</label><input name="ulang" type="password" required autocomplete="new-password"></div><button class="btn pri" type="submit">Simpan Password</button></form></div>`;
-          } else
-            body = `<div class="card" style="max-width:560px"><h3 style="color:var(--ink);margin-bottom:6px">Cadangan Data</h3><p style="margin-bottom:14px">Unduh ${adm ? "seluruh data" : "data Anda"} (kelas, siswa, jadwal, jurnal, absensi, nilai, bimbingan) sebagai file JSON.</p><button class="btn pri" data-act="backup">${ic("dl", 16)} Unduh Cadangan</button>
-      <div class="note"><b>Mode:</b> ${IS_PREVIEW ? "Preview (data uji di memori browser — tidak tersimpan)" : "Terhubung ke Supabase"}<br><b>Peran:</b> ${adm ? "Admin" : "Guru"}</div></div>`;
-          return `${phead("Pengaturan", adm ? "Sekolah & aplikasi" : "Akun & informasi sekolah")}<div class="tabs">${tabs.map(([id, l]) => `<button class="tab ${t === id ? "on" : ""}" data-act="tab" data-p="pg.tab" data-v="${id}">${l}</button>`).join("")}</div>${body}`;
+      <div class="card" style="max-width:460px"><h3 style="color:var(--ink);margin-bottom:12px">Ganti Password</h3><form data-form="gantiPw" style="display:flex;flex-direction:column;gap:12px"><div class="fld"><label>Password Lama</label><input name="lama" type="password" required></div><div class="fld"><label>Password Baru</label><input name="baru" type="password" required></div><div class="fld"><label>Ulangi Password Baru</label><input name="ulang" type="password" required></div><div><button class="btn pri" type="submit">Simpan Password</button></div></form></div>`;
+          } else if (t === "data") {
+            body = `<div class="card" style="max-width:560px"><h3 style="color:var(--ink);margin-bottom:6px">Cadangan Data (Backup)</h3><p style="margin-bottom:14px">Unduh seluruh data dalam format JSON untuk arsip.</p><button class="btn pri" data-act="backup">${ic("dl", 16)} Unduh Cadangan JSON</button></div>`;
+          }
+          return `${phead("Pengaturan")}<div class="tabs">${tabs.map(([id, l]) => `<button class="tab ${t === id ? "on" : ""}" data-act="tab" data-p="pg.tab" data-v="${id}">${l}</button>`).join("")}</div>${body}`;
         },
         after() {
-          if (S.role !== "admin")
-            $$(
-              "form[data-ro] input,form[data-ro] select,form[data-ro] textarea",
-            ).forEach((e) => {
-              e.disabled = true;
-            });
+          const f = $("[data-ro=1]");
+          if (f)
+            f.querySelectorAll("input,select,textarea").forEach(
+              (el) => (el.disabled = true),
+            );
         },
       };
+      PAGES.nilai.after = () => {
+        if (S.nl.tab === "input") nlRecalc();
+      };
 
-      /* ================================= MULAI ================================= */
-      (async function init() {
-        try {
-          document.body.style.overflow = "hidden";
-        } catch (e) {
-          /* abaikan */
-        }
+      /* ============================ BOOT ============================ */
+      (async function boot() {
         setupPWA();
-        if (sbError) {
-          root.innerHTML = `<div class="login"><div class="lcard"><h2>Tidak dapat memuat Supabase</h2><p class="sub">${esc(sbError.message || sbError)}</p><p class="sub">Periksa koneksi internet lalu muat ulang halaman.</p></div></div>`;
+        if (!IS_PREVIEW && !sb) {
+          root.innerHTML = `<div class="login"><div class="lcard"><div class="brand">${logoBox()}<b>GuruKu.</b></div><div class="note" style="background:#ffe9ee;color:#d8435f">Gagal memuat pustaka Supabase (${esc(sbError?.message || "offline")}). Periksa koneksi internet Anda lalu muat ulang halaman.</div></div></div>`;
           return;
         }
-        if (
-          !IS_PREVIEW &&
-          (SUPABASE_URL.startsWith("URL_") ||
-            SUPABASE_ANON_KEY.startsWith("ANON_"))
-        ) {
-          root.innerHTML = `<div class="login"><div class="lcard"><h2>Supabase belum dikonfigurasi</h2><p class="sub">Isi SUPABASE_URL dan SUPABASE_ANON_KEY di bagian atas skrip, atau kembalikan IS_PREVIEW = true.</p></div></div>`;
-          return;
-        }
+        root.innerHTML = `<div class="login"><div class="spin"></div></div>`;
         await autoSetupDatabase();
         if (await bootAuth()) await enterApp();
         else renderLogin();
