@@ -6698,7 +6698,7 @@
           return `${phead("Pengaturan")}<div class="tabs">${tabs.map(([id, l]) => `<button class="tab ${t === id ? "on" : ""}" data-act="tab" data-p="pg.tab" data-v="${id}">${l}</button>`).join("")}</div>${body}`;
         },
         after() {
-          const f = $("[data-ro=1]");
+          const f = $('[data-ro="1"]');
           if (f)
             f.querySelectorAll("input,select,textarea").forEach(
               (el) => (el.disabled = true),
